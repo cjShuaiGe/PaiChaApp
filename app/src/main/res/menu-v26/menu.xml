@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/chat"
+        android:title="设备"
+        android:icon="@drawable/icon_equipment"
+        android:iconTint="#4CDB96"
+        />
+
+    <item
+        android:id="@+id/account"
+        android:title="控制"
+        android:icon="@drawable/icon_control"/>
+
+    <item
+        android:id="@+id/setting"
+        android:title="我的"
+        android:icon="@drawable/icon_mine"/>
+
+
+</menu>
