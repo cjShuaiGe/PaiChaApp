@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PortModel extends ViewModel {
+    private String deviceId;
     private final MutableLiveData<List<Port>> portsData = new MutableLiveData<>();
     private final MutableLiveData<String> portName = new MutableLiveData<>();
     private final MutableLiveData<String> deviceName = new MutableLiveData<>();
@@ -26,6 +27,7 @@ public class PortModel extends ViewModel {
 
     public void refreshDeviceName(String s){
         deviceName.setValue(s);
+        deviceId=s;
     }
 
     public MutableLiveData<String> portName(){
@@ -38,5 +40,9 @@ public class PortModel extends ViewModel {
 
     public MutableLiveData<List<Port>> portsData() {
         return portsData;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
     }
 }

@@ -15,6 +15,7 @@ import com.example.paichaapp.fragment.ControlFragment;
 import com.example.paichaapp.fragment.EquipmentFragment;
 import com.example.paichaapp.fragment.MineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.tencent.mmkv.MMKV;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MMKV.initialize(this);
         viewPager=findViewById(R.id.main_vp2);
         bottomNavigationView=findViewById(R.id.bottom_navigation);
         initBottomNavigation();
@@ -41,15 +43,15 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.chat:
                         viewPager.setCurrentItem(0);
-                        item.setIcon(R.drawable.choose_equipment);
+
                         break;
                     case R.id.account:
                         viewPager.setCurrentItem(1);
-                        item.setIcon(R.drawable.choose_control);
+
                         break;
                     case R.id.setting:
                         viewPager.setCurrentItem(2);
-                        item.setIcon(R.drawable.choose_mine);
+
                         break;
                     default:break;
 
@@ -78,49 +80,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initData() {
-        fragmentList.add(new EquipmentFragment());
-        fragmentList.add(new ControlFragment());
-        fragmentList.add(new MineFragment());
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
 
-                    case R.id.chat:
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.account:
-                        viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.setting:
-                        viewPager.setCurrentItem(2);
-                        break;
-                    default:break;
-
-                }
-
-                return false;
-            }
-        });
-        viewPager.setAdapter(new MainFragmentAdapter(MainActivity.this));
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-            }
-        });
-    }
 
 }

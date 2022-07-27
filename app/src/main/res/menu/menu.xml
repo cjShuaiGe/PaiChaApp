@@ -4,6 +4,7 @@
         android:id="@+id/chat"
         android:title="设备"
         android:icon="@drawable/icon_equipment"
+        
         />
 
     <item

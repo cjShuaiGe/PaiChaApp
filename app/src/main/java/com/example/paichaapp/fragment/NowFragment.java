@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.tencent.mmkv.MMKV;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,9 @@ public class NowFragment extends Fragment {
     Button bt_v;
     Button bt_w;
     TextView tv_type_chat;
+    MMKV mmkv;
+    String s;
+    @SuppressLint("LongLogTag")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +66,10 @@ public class NowFragment extends Fragment {
         bt_change_chat=view.findViewById(R.id.change_chat);
         set_device=view.findViewById(R.id.set_device);
         tv_type_chat=view.findViewById(R.id.tv_type_chat);
-
+        mmkv=MMKV.mmkvWithID("id");
+        Intent intent=getActivity().getIntent();
+         s="dk"+intent.getStringExtra("portname").charAt(2);
+        portModel.refreshDeviceName(mmkv.decodeString(s));
         lc=view.findViewById(R.id.lc);
         lc.setExtraOffsets(10,30,10,10);
         setChooseChat();
@@ -102,7 +110,9 @@ public class NowFragment extends Fragment {
         set_device.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(), SetDeviceActivity.class));
+                Intent intent=new Intent(getActivity(), SetDeviceActivity.class);
+                intent.putExtra("deviceName",s);
+                getActivity().startActivity(intent);
             }
         });
     }
@@ -200,5 +210,11 @@ public class NowFragment extends Fragment {
        legend.setEnabled(false);
         Description description=lc.getDescription();
         description.setEnabled(false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        portModel.refreshDeviceName(mmkv.decodeString(s));
     }
 }
