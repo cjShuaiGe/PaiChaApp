@@ -1,7 +1,9 @@
 package com.example.paichaapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,11 +64,23 @@ public class RcPortAdapter extends RecyclerView.Adapter<RcPortAdapter.ViewHolder
         holder.tv_consume.setText(port.getElectricConsumption());
         holder.tv_power.setText(port.getMaxPower());
         holder.status.setText(port.getStatus());
+        switch (port.getStatus()){
+            case "断电" :holder.status.setBackgroundResource(R.drawable.status_red);
+            break;
+
+            case "待机" :holder.status.setBackgroundResource(R.drawable.status_yellow);
+            break;
+
+            case "工作" :holder.status.setBackgroundResource(R.drawable.status_green);
+
+            default:break;
+        }
         holder.mview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mactivity, PortActivity.class);
-                intent.putExtra("portname",port.getPortName().substring(0,2));
+                intent.putExtra("portname",port.getPortName().substring(0,3));
+                intent.putExtra("devicename",port.getPortName().substring(4));
                 mactivity.startActivity(intent);
             }
         });

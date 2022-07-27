@@ -9,8 +9,9 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        android:background="#FFFFFF">
+        android:id="@+id/toolbar_device"
+        android:background="#FFFFFF"
+        app:navigationIcon="@drawable/icon_back">
         <TextView
             android:id="@+id/choose_port"
             android:layout_width="wrap_content"

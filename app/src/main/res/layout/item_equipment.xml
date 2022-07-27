@@ -35,7 +35,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/set_bg"
+            android:background="@drawable/status_green"
             android:text="断电"
             android:textColor="@color/white" />
     </RelativeLayout>

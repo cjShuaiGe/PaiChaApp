@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EquipmentActivity"
     android:orientation="vertical">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        app:navigationIcon="@drawable/icon_menu">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
                 android:layout_toStartOf="@+id/iv_clear"
                 android:layout_toEndOf="@+id/iv_search"
                 android:background="@null"
-                android:hint="请输入物品"
+                android:hint="请输入端口"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textColor="@color/black"
