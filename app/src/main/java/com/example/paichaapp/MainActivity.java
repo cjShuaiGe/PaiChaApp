@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.paichaapp.Util.Util;
 import com.example.paichaapp.adapter.MainFragmentAdapter;
 import com.example.paichaapp.fragment.ControlFragment;
 import com.example.paichaapp.fragment.EquipmentFragment;

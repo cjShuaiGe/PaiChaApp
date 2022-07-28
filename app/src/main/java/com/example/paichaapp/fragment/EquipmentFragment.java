@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.paichaapp.R;
 import com.example.paichaapp.Search;
+import com.example.paichaapp.SetPaiCha;
 import com.example.paichaapp.adapter.RcPortAdapter;
 import com.example.paichaapp.model.Port;
 import com.example.paichaapp.viewmodel.PortModel;
@@ -44,15 +45,15 @@ public class EquipmentFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_equipment,container,false);
         init(view);
         initData();
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SetPaiCha.class));
+            }
+        });
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        initData();
-    }
 
     private void initData() {
         mlist.clear();

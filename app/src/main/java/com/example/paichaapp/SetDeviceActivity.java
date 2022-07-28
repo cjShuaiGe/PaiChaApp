@@ -39,32 +39,32 @@ public class SetDeviceActivity extends AppCompatActivity {
         intent=getIntent();
         s=intent.getStringExtra("deviceName");
         device_name.setText(mmkv.decodeString(s));
-        setDialog();
+//        setDialog();
         setClick();
     }
 
-    private void setDialog() {
-        View view = View.inflate(SetDeviceActivity.this, R.layout.dialog_create, null);
-        EditText et_setName = view.findViewById(R.id.setName);
-         setNameDialog = new AlertDialog.Builder(this)
-                .setView(view)
-                .setPositiveButton("确定", (dialog, which) -> {
-                    device_name.setText(et_setName.getText().toString());
-                     mmkv.encode(s,et_setName.getText().toString());
-                    dialog.dismiss();
-                })
-                .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
-                .create();
-//        setNameDialog.show();
-    }
+//    private void setDialog() {
+//        View view = View.inflate(SetDeviceActivity.this, R.layout.dialog_create, null);
+//        EditText et_setName = view.findViewById(R.id.setName);
+//         setNameDialog = new AlertDialog.Builder(this)
+//                .setView(view)
+//                .setPositiveButton("确定", (dialog, which) -> {
+//                    device_name.setText(et_setName.getText().toString());
+//                     mmkv.encode(s,et_setName.getText().toString());
+//                    dialog.dismiss();
+//                })
+//                .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
+//                .create();
+////        setNameDialog.show();
+//    }
 
     private void setClick() {
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               setNameDialog.show();
-            }
-        });
+//        relativeLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               setNameDialog.show();
+//            }
+//        });
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

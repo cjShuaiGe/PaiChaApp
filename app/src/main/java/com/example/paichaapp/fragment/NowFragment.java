@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +13,19 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.paichaapp.LiveData.MyLiveData;
 import com.example.paichaapp.R;
 import com.example.paichaapp.SetDeviceActivity;
+import com.example.paichaapp.Util.Util;
+import com.example.paichaapp.model.Option;
+import com.example.paichaapp.model.Receive;
 import com.example.paichaapp.tool.ScreenSizeUtils;
 import com.example.paichaapp.viewmodel.PortModel;
 import com.github.mikephil.charting.charts.LineChart;
@@ -38,6 +38,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
 
 import java.util.ArrayList;
@@ -56,6 +57,9 @@ public class NowFragment extends Fragment {
     TextView tv_type_chat;
     MMKV mmkv;
     String s;
+    Gson gson=new Gson();
+    List<Entry> entries =new ArrayList<>();
+    Intent intent;
     @SuppressLint("LongLogTag")
     @Nullable
     @Override
@@ -67,7 +71,7 @@ public class NowFragment extends Fragment {
         set_device=view.findViewById(R.id.set_device);
         tv_type_chat=view.findViewById(R.id.tv_type_chat);
         mmkv=MMKV.mmkvWithID("id");
-        Intent intent=getActivity().getIntent();
+        intent=getActivity().getIntent();
          s="dk"+intent.getStringExtra("portname").charAt(2);
         portModel.refreshDeviceName(mmkv.decodeString(s));
         lc=view.findViewById(R.id.lc);
@@ -77,7 +81,6 @@ public class NowFragment extends Fragment {
         setXAxis();
         setYAxis();
         setLegend();
-        setButton();
         setData();
         return view;
     }
@@ -145,11 +148,17 @@ public class NowFragment extends Fragment {
     }
 
     private void setData() {
-        List<Entry> entries =new ArrayList<>();
-      for(int i=1;i<6;i++){
-          int f=5*i*i+30*i-30;
-           entries.add(new Entry(i,f));
-      }
+        Util.sendMessage(new Gson().toJson(new Option("2",intent.getStringExtra("portname"))));
+       MyLiveData.getMessageData().observe(getActivity(), new Observer<String>() {
+           @Override
+           public void onChanged(String s) {
+               Receive receive = gson.fromJson(s, Receive.class);
+               if (receive.getLabel().equals("1")){
+                   addList(receive);
+               }
+
+           }
+       });
         LineDataSet lineDataSet=new LineDataSet(entries,"first");
         lineDataSet.setCircleRadius(4);//设置圆点半径大小
         lineDataSet.setLineWidth(2);//设置折线的宽度
@@ -158,7 +167,27 @@ public class NowFragment extends Fragment {
         lineDataSet.setColor(Color.parseColor("#4CDB96"));
         LineData lineData=new LineData(lineDataSet);
         lc.setData(lineData);
+        setData();
     }
+
+    private List<Entry> addList(Receive receive) {
+
+        for (int i=0;i<5;i++){
+            if (entries.get(i)==null){
+                float f=10f*i;
+                entries.add(new Entry(f,receive.getCurrent()));
+                return entries;
+            }
+        }
+
+        for (int j=0;j<4;j++){
+            entries.add(j,entries.get(j+1));
+        }
+        float ff=entries.get(4).getX();
+        entries.add(4,new Entry(ff+10f,receive.getCurrent()));
+        return entries;
+    }
+
 
     private void setModel() {
          portModel.getDeviceName().observe(getActivity(), new Observer<String>() {
@@ -181,7 +210,7 @@ public class NowFragment extends Fragment {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
                 String s=value+"";
-                return "06:00:"+s.substring(0,s.indexOf("."));
+                return s.substring(0,s.indexOf("."))+"s";
             }
         });
     }
@@ -199,7 +228,7 @@ public class NowFragment extends Fragment {
                     return "";
                 }
                 String tep = value + "A";
-                return tep.substring(0,tep.indexOf("."));
+                return tep;
             }
         });
 
@@ -212,9 +241,5 @@ public class NowFragment extends Fragment {
         description.setEnabled(false);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        portModel.refreshDeviceName(mmkv.decodeString(s));
-    }
+
 }
