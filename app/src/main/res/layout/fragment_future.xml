@@ -70,7 +70,7 @@
                 android:id="@+id/tv_smart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="根据你的用电情况制定合理的方案"
+                android:text="昨天在该端口的用电高峰期为15:00-17:00，主要用电器为打印机。建议您可在打印不需要打印机的时候对此端口进行断电处理。"
                 android:layout_marginStart="20sp"
                 android:layout_marginBottom="10dp"/>
         </LinearLayout>

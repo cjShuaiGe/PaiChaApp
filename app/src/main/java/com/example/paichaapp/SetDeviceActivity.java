@@ -9,12 +9,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.paichaapp.Util.Util;
+import com.example.paichaapp.model.Option;
 import com.example.paichaapp.viewmodel.PortModel;
+import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
 
 public class SetDeviceActivity extends AppCompatActivity {
@@ -27,6 +31,7 @@ public class SetDeviceActivity extends AppCompatActivity {
     Intent intent;
     MMKV mmkv;
     String s;
+    String num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +42,9 @@ public class SetDeviceActivity extends AppCompatActivity {
         device_name=findViewById(R.id.device_name);
         mmkv=MMKV.mmkvWithID("id");
         intent=getIntent();
+        num=intent.getStringExtra("portnum");
         s=intent.getStringExtra("deviceName");
-        device_name.setText(mmkv.decodeString(s));
+        device_name.setText(s);
 //        setDialog();
         setClick();
     }
@@ -70,6 +76,24 @@ public class SetDeviceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Option option=new Option("1",num);
+                    option.setKey("switch");
+                    option.setValue("ON");
+                    Util.sendMessage(new Gson().toJson(option));
+
+                } else {
+                    Option option=new Option("1",num);
+                    option.setKey("switch");
+                    option.setValue("OFF");
+                    Util.sendMessage(new Gson().toJson(option));
+                }
             }
         });
     }

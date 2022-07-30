@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         initBottomNavigation();
     }
 
+
     private void initBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

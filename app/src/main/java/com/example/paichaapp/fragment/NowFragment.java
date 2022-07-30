@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +46,10 @@ import com.tencent.mmkv.MMKV;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.LogRecord;
 
 public class NowFragment extends Fragment {
     PortModel portModel;
@@ -57,27 +64,25 @@ public class NowFragment extends Fragment {
     TextView tv_type_chat;
     MMKV mmkv;
     String s;
-    Gson gson=new Gson();
-    List<Entry> entries =new ArrayList<>();
+    Gson gson = new Gson();
+    List<Entry> entries = new ArrayList<>();
     Intent intent;
+    Handler handler=new Handler();
+    Runnable runnable;
+    String port_num;
+    int CHAT=0;
+    int CURRENT=0;
+    int VOLTAGE=1;
+    int POWER=2;
     @SuppressLint("LongLogTag")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragement_now,container,false);
-        tv_device=view.findViewById(R.id.tv_device_name);
-        portModel=new ViewModelProvider(getActivity()).get(PortModel.class);
-        bt_change_chat=view.findViewById(R.id.change_chat);
-        set_device=view.findViewById(R.id.set_device);
-        tv_type_chat=view.findViewById(R.id.tv_type_chat);
-        mmkv=MMKV.mmkvWithID("id");
-        intent=getActivity().getIntent();
-         s="dk"+intent.getStringExtra("portname").charAt(2);
-        portModel.refreshDeviceName(mmkv.decodeString(s));
-        lc=view.findViewById(R.id.lc);
-        lc.setExtraOffsets(10,30,10,10);
+        View view = inflater.inflate(R.layout.fragement_now, container, false);
+        initView(view);
         setChooseChat();
-        setModel();
+        setButton();
+//        setModel();
         setXAxis();
         setYAxis();
         setLegend();
@@ -85,11 +90,52 @@ public class NowFragment extends Fragment {
         return view;
     }
 
+
+
+    private void initView(View view) {
+        tv_device = view.findViewById(R.id.tv_device_name);
+        portModel = new ViewModelProvider(getActivity()).get(PortModel.class);
+        bt_change_chat = view.findViewById(R.id.change_chat);
+        set_device = view.findViewById(R.id.set_device);
+        tv_type_chat = view.findViewById(R.id.tv_type_chat);
+        mmkv = MMKV.mmkvWithID("id");
+        lc = view.findViewById(R.id.lc);
+
+
+
+
+        runnable=new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                Util.sendMessage(new Gson().toJson(new Option("4", intent.getStringExtra("portname").substring(2, 3))));
+                handler.postDelayed(this, 1000);
+            }
+        };
+
+
+
+        intent = getActivity().getIntent();
+        s = intent.getStringExtra("devicename");
+        port_num=intent.getStringExtra("portname");
+        tv_device.setText("设备:" + s);
+
+
+
+        lc.setExtraOffsets(10, 30, 10, 10);
+    }
+
     private void setButton() {
         bt_a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tv_type_chat.setText("电流");
+
+                CHAT=0;
+                entries.clear();
+                setLineData();
+                lc.notifyDataSetChanged();
+                lc.invalidate();
                 dialog.dismiss();
             }
         });
@@ -98,6 +144,12 @@ public class NowFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tv_type_chat.setText("电压");
+
+                CHAT=1;
+                entries.clear();
+                setLineData();
+                lc.notifyDataSetChanged();
+                lc.invalidate();
                 dialog.dismiss();
             }
         });
@@ -106,6 +158,11 @@ public class NowFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tv_type_chat.setText("功率");
+                CHAT=2;
+                entries.clear();
+                setLineData();
+                lc.notifyDataSetChanged();
+                lc.invalidate();
                 dialog.dismiss();
             }
         });
@@ -113,8 +170,9 @@ public class NowFragment extends Fragment {
         set_device.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), SetDeviceActivity.class);
-                intent.putExtra("deviceName",s);
+                Intent intent = new Intent(getActivity(), SetDeviceActivity.class);
+                intent.putExtra("deviceName", s);
+                intent.putExtra("portnum",port_num.substring(2,3));
                 getActivity().startActivity(intent);
             }
         });
@@ -131,16 +189,16 @@ public class NowFragment extends Fragment {
     }
 
     private void setDialog() {
-        dialog=new Dialog(getActivity(),R.style.NormalDialogStyle);
+        dialog = new Dialog(getActivity(), R.style.NormalDialogStyle);
         View view = View.inflate(getActivity(), R.layout.dialog_bottom, null);
-        bt_a=view.findViewById(R.id.bt_A);
-        bt_v=view.findViewById(R.id.bt_V);
-        bt_w=view.findViewById(R.id.bt_W);
+        bt_a = view.findViewById(R.id.bt_A);
+        bt_v = view.findViewById(R.id.bt_V);
+        bt_w = view.findViewById(R.id.bt_W);
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(true);
         Window dialogWindow = dialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-       lp.width = (int) (ScreenSizeUtils.getInstance(getActivity()).getScreenWidth());
+        lp.width = (int) (ScreenSizeUtils.getInstance(getActivity()).getScreenWidth());
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.BOTTOM;
         dialogWindow.setAttributes(lp);
@@ -148,59 +206,60 @@ public class NowFragment extends Fragment {
     }
 
     private void setData() {
-        Util.sendMessage(new Gson().toJson(new Option("2",intent.getStringExtra("portname"))));
-       MyLiveData.getMessageData().observe(getActivity(), new Observer<String>() {
-           @Override
-           public void onChanged(String s) {
-               Receive receive = gson.fromJson(s, Receive.class);
-               if (receive.getLabel().equals("1")){
-                   addList(receive);
-               }
+        Util.sendMessage(gson.toJson(new Option("4", intent.getStringExtra("portname").substring(2, 3))));
 
-           }
-       });
-        LineDataSet lineDataSet=new LineDataSet(entries,"first");
-        lineDataSet.setCircleRadius(4);//设置圆点半径大小
+       setLineData();
+        MyLiveData.getMessageData().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Receive receive = gson.fromJson(s, Receive.class);
+                if (receive.getLabel().equals("4")){
+                addList(receive);
+                setLineData();
+                lc.notifyDataSetChanged();
+                lc.invalidate();
+                }
+            }
+        });
+        handler.postDelayed(runnable, 1000);
+    }
+
+    private void setLineData() {
+        LineDataSet lineDataSet = new LineDataSet(entries, "first");
+        lineDataSet.setCircleRadius(3);//设置圆点半径大小
         lineDataSet.setLineWidth(2);//设置折线的宽度
 //        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER); // 设置折线类型，这里设置为贝塞尔曲线
         lineDataSet.setCircleColors(Color.parseColor("#4CDB96"));
         lineDataSet.setColor(Color.parseColor("#4CDB96"));
-        LineData lineData=new LineData(lineDataSet);
+        LineData lineData = new LineData(lineDataSet);
         lc.setData(lineData);
-        setData();
     }
+
 
     private List<Entry> addList(Receive receive) {
-
-        for (int i=0;i<5;i++){
-            if (entries.get(i)==null){
-                float f=10f*i;
-                entries.add(new Entry(f,receive.getCurrent()));
-                return entries;
-            }
-        }
-
-        for (int j=0;j<4;j++){
-            entries.add(j,entries.get(j+1));
-        }
-        float ff=entries.get(4).getX();
-        entries.add(4,new Entry(ff+10f,receive.getCurrent()));
-        return entries;
+     if (CHAT==CURRENT){
+         entries.add(new Entry(entries.size(),receive.getCurrent()));
+     } else if (CHAT==VOLTAGE){
+         entries.add(new Entry(entries.size(),receive.getVoltage()));
+     } else if (CHAT==POWER){
+         entries.add(new Entry(entries.size(),receive.getPower()));
+     }
+     return entries;
     }
 
 
-    private void setModel() {
-         portModel.getDeviceName().observe(getActivity(), new Observer<String>() {
-             @SuppressLint("SetTextI18n")
-             @Override
-             public void onChanged(String s) {
-                 tv_device.setText("设备:"+s);
-             }
-         });
-    }
+//    private void setModel() {
+//        portModel.getDeviceName().observe(getActivity(), new Observer<String>() {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onChanged(String s) {
+//                ;
+//            }
+//        });
+//    }
 
     private void setXAxis() {
-        XAxis xAxis=lc.getXAxis();
+        XAxis xAxis = lc.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);//不绘制网格线
         xAxis.setGranularity(1);//间隔1
@@ -209,26 +268,33 @@ public class NowFragment extends Fragment {
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                String s=value+"";
-                return s.substring(0,s.indexOf("."))+"s";
+                String s = value + "";
+                return s.substring(0, s.indexOf(".")) + "s";
             }
         });
     }
 
     private void setYAxis() {
         lc.getAxisRight().setEnabled(false);
-        YAxis yAxis=lc.getAxisLeft();
-        yAxis.setLabelCount(9,true);
-        yAxis.setAxisMaximum(400);
-        yAxis.setAxisMinimum(0);
+        YAxis yAxis = lc.getAxisLeft();
+        yAxis.setLabelCount(9, true);
+//        yAxis.setAxisMaximum(400);
+//        yAxis.setAxisMinimum(0);
         yAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                if(value == 0){
+                if (value == 0) {
                     return "";
                 }
-                String tep = value + "A";
-                return tep;
+                String tep = "";
+               if (CHAT==CURRENT){
+                 tep = value + "A";
+               }else if (CHAT==VOLTAGE){
+                   tep = value + "V";
+               } else if (CHAT==POWER){
+                   tep = value + "W";
+               }
+               return tep;
             }
         });
 
@@ -236,10 +302,20 @@ public class NowFragment extends Fragment {
 
     private void setLegend() {
         Legend legend = lc.getLegend();
-       legend.setEnabled(false);
-        Description description=lc.getDescription();
+        legend.setEnabled(false);
+        Description description = lc.getDescription();
         description.setEnabled(false);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
 }

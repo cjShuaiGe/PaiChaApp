@@ -42,9 +42,9 @@ public class FutureFragment extends Fragment {
     }
     private void setData() {
         List<Entry> entries =new ArrayList<>();
-        for(int i=1;i<6;i++){
-            int f=5*i*i+30*i-30;
-            entries.add(new Entry(i,f));
+        float[] f={(float) 0.0768, (float)0.0948,(float) 0.3353,(float) 0.3914,(float) 0.8789,(float) 0.8006};
+        for (int i = 0; i<f.length; i++){
+            entries.add(new Entry(i,f[i]));
         }
         LineDataSet lineDataSet=new LineDataSet(entries,"first");
         lineDataSet.setCircleRadius(4);//设置圆点半径大小
@@ -70,7 +70,7 @@ public class FutureFragment extends Fragment {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
                 String s=value+"";
-                return "06:00:"+s.substring(0,s.indexOf("."));
+                return s.substring(0,s.indexOf("."));
             }
         });
     }
@@ -79,16 +79,16 @@ public class FutureFragment extends Fragment {
         lc.getAxisRight().setEnabled(false);
         YAxis yAxis=lc.getAxisLeft();
         yAxis.setLabelCount(9,true);
-        yAxis.setAxisMaximum(400);
-        yAxis.setAxisMinimum(0);
+//        yAxis.setAxisMaximum(400);
+//        yAxis.setAxisMinimum(0);
         yAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
                 if(value == 0){
                     return "";
                 }
-                String tep = value + "A";
-                return tep.substring(0,tep.indexOf("."));
+                String tep = value + "";
+                return tep+"kw/h";
             }
         });
 
