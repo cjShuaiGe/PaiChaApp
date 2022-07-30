@@ -23,9 +23,9 @@ public class Util {
 
    static OkHttpClient client = new OkHttpClient.Builder()
             .retryOnConnectionFailure(true)//允许失败重试
-            .readTimeout(5, TimeUnit.SECONDS)//设置读取超时时间
-            .writeTimeout(5, TimeUnit.SECONDS)//设置写的超时时间
-            .connectTimeout(10, TimeUnit.SECONDS)//设置连接超时时间
+            .readTimeout(500, TimeUnit.SECONDS)//设置读取超时时间
+            .writeTimeout(500, TimeUnit.SECONDS)//设置写的超时时间
+            .connectTimeout(1000, TimeUnit.SECONDS)//设置连接超时时间
             .build();
     static String url = "ws://39.98.41.126:31102/";
    static Request request = new Request.Builder().url(url).build();

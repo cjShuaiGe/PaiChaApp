@@ -50,9 +50,10 @@ public class Search extends AppCompatActivity {
 
     private void initList() {
         list.clear();
-        list.add(new Port("端口"+1+":"+mmkv.decodeString("dk1"),"断电","100kw/h","100 A","100 V","100 W"));
-        list.add(new Port("端口"+2+":"+mmkv.decodeString("dk2"),"通电","100kw/h","100 A","100 V","100 W"));
-        list.add(new Port("端口"+3+":"+mmkv.decodeString("dk3"),"待机","100kw/h","100 A","100 V","100 W"));
+       for (int i=1;i<=3;i++){
+           list.add(new Port(mmkv.decodeString("dk"+i),mmkv.decodeString("status"+i),mmkv.decodeString("usePower"+i),mmkv.decodeString("current"+i),
+                   mmkv.decodeString("voltage"+i),mmkv.decodeString("power"+i)));
+       }
     }
 
     private void initRecyclerView() {

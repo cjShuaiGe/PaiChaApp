@@ -40,7 +40,10 @@ public class SetDeviceActivity extends AppCompatActivity {
         sw=findViewById(R.id.sw);
         toolbar=findViewById(R.id.toolbar_set_device);
         device_name=findViewById(R.id.device_name);
-        mmkv=MMKV.mmkvWithID("id");
+        mmkv=MMKV.mmkvWithID("deviceswitch");
+       if (mmkv.decodeBool("switch")){
+           sw.setChecked(true);
+       }else {sw.setChecked(false);}
         intent=getIntent();
         num=intent.getStringExtra("portnum");
         s=intent.getStringExtra("deviceName");
@@ -87,12 +90,13 @@ public class SetDeviceActivity extends AppCompatActivity {
                     option.setKey("switch");
                     option.setValue("ON");
                     Util.sendMessage(new Gson().toJson(option));
-
+                    mmkv.encode("switch",true);
                 } else {
                     Option option=new Option("1",num);
                     option.setKey("switch");
                     option.setValue("OFF");
                     Util.sendMessage(new Gson().toJson(option));
+                    mmkv.encode("switch",false);
                 }
             }
         });

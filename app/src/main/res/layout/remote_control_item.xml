@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="123dp"
     android:background="@drawable/corner">
@@ -39,7 +40,8 @@
         android:layout_marginLeft="340dp"
         android:switchMinWidth="50dp"
         android:textOn="关"
-        android:textOff="开"/>
+        android:textOff="开"
+        tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
 
     <View
         android:layout_width="match_parent"

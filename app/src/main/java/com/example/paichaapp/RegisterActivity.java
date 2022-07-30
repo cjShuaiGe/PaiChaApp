@@ -1,7 +1,9 @@
 package com.example.paichaapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,24 +65,27 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onResult() {
         MyLiveData.getMessageData().observe(this, new Observer<String>() {
 
+            @SuppressLint("LongLogTag")
             @Override
             public void onChanged(String s) {
                 String result;
                 try {
                     JSONObject jsonObject = new JSONObject(s);
+                    Log.d("2222222222222222222222222222222222222222222222222",jsonObject.getString("option"));
                     if ("1".equals(jsonObject.getString("option"))) {
                     } else {
                         result = jsonObject.getString("result");
-                        if (result == "success") {
+                        if (result.equals("success") ) {
                             isOk = true;
                         } else {
                             isOk = false;
                         }
                     }
+                    onResponse();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                onResponse();
+
             }
 
         });
@@ -95,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void onResponse() {
-        if (isOk == false) {
+        if (!isOk) {
             Toast.makeText(RegisterActivity.this,"注册失败！手机号码已被注册！",Toast.LENGTH_SHORT).show();
         } else {
             isOk = false;

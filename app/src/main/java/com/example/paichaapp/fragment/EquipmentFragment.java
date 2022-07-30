@@ -75,6 +75,7 @@ public class EquipmentFragment extends Fragment {
         Option option=new Option();
         option.setDate(time);option.setOption("6");
         Util.sendMessage(gson.toJson(option));
+        mmkv=MMKV.mmkvWithID("id");
         MyLiveData.getMessageData().observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -101,6 +102,14 @@ public class EquipmentFragment extends Fragment {
                         receive.getIndex_num2().getPower()));
                 mlist.add(new Port(s3,status3,receive.getUsepower(),receive.getIndex_num3().getCurrent(),receive.getIndex_num3().getVoltage(),
                         receive.getIndex_num3().getPower()));
+                for (int i=1;i<=3;i++){
+                    mmkv.encode("usePower"+i,receive.getUsepower());
+                }
+                mmkv.encode("dk1",s1);mmkv.encode("dk2",s2);mmkv.encode("dk3",s3);
+                mmkv.encode("status1",status1);mmkv.encode("status2",status2);mmkv.encode("status3",status3);
+                mmkv.encode("current1",receive.getIndex_num1().getCurrent());mmkv.encode("current2",receive.getIndex_num2().getCurrent());mmkv.encode("current3",receive.getIndex_num3().getCurrent());
+                mmkv.encode("voltage1",receive.getIndex_num1().getVoltage());mmkv.encode("voltage2",receive.getIndex_num2().getVoltage());mmkv.encode("voltage3",receive.getIndex_num3().getVoltage());
+                mmkv.encode("power1",receive.getIndex_num1().getPower());mmkv.encode("power2",receive.getIndex_num2().getPower());mmkv.encode("power3",receive.getIndex_num3().getPower());
                 portModel.refreshPortsData(mlist);
                 }
                 }

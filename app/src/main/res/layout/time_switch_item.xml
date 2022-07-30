@@ -8,32 +8,32 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="8dp"
         android:text="00:00"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="32dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="8dp"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/port"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/port"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="48dp"
         android:text="端口1"
         android:textColor="@color/black"
-        android:textSize="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginLeft="32dp"/>
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/on_or_off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="48dp"
         android:text="关闭"
         android:textColor="@color/black"
-        android:textSize="16dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="48dp"/>
+        android:textSize="16dp" />
 
     <ImageView
         android:layout_width="40dp"
