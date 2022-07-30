@@ -36,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
         initBottomNavigation();
     }
 
-
+    //刷新每次传入的Intent
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
     private void initBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -6,10 +6,13 @@
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/bg_dialog_setname.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/buttom.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/button.xml" value="0.1765" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/button_corner.xml" value="0.1765" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/corner.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/cursor_style.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/dalog_while.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/dialog_while.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/gray_track.xml" value="0.1765" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/search_corner.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/search_et_bg.xml" value="0.1" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/select_color.xml" value="0.1765" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/drawable/set_bg.xml" value="0.1765" />
@@ -25,15 +28,28 @@
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/activity_set_device_activtiy.xml" value="0.27395833333333336" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/activity_set_pai_cha.xml" value="0.259375" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/alarm_settings_item.xml" value="0.259375" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/contact_person_item.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/control_remote_control.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/control_time_switch.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/control_time_task.xml" value="0.27395833333333336" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/dialog_bottom.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/dialog_create.xml" value="0.27395833333333336" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragement_now.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragment_control.xml" value="0.22393162393162394" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragment_equipment.xml" value="0.27291666666666664" />
-        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragment_future.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragment_future.xml" value="0.2" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragment_history.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/fragment_mine.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/item_equipment.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/mine_alarm_settings.xml" value="0.259375" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/mine_contact_person.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/mine_contact_person_add.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/mine_login.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/mine_register.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/mine_user_information.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/remote_control_item.xml" value="0.27395833333333336" />
+        <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/layout/time_switch_item.xml" value="0.27395833333333336" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/menu-v26/menu.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/menu/menu.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Sudio Demo/PaiChaApp/app/src/main/res/menu/search.xml" value="0.27291666666666664" />

@@ -80,6 +80,7 @@ public class EquipmentFragment extends Fragment {
             public void onChanged(String s) {
                 Receive receive=gson.fromJson(s,Receive.class);
                 String status1="工作";String status2="工作";String status3="工作";
+                if (receive.getLabel()!=null){
                 if (receive.getLabel().equals("3")){
                  if (receive.getName1().equals("UNKNOW")){
                      receive.setIndex_num1(new Max("0","0","0"));
@@ -101,6 +102,7 @@ public class EquipmentFragment extends Fragment {
                 mlist.add(new Port(s3,status3,receive.getUsepower(),receive.getIndex_num3().getCurrent(),receive.getIndex_num3().getVoltage(),
                         receive.getIndex_num3().getPower()));
                 portModel.refreshPortsData(mlist);
+                }
                 }
             }
         });

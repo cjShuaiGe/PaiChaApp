@@ -1,41 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#FCFCFC"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:layout_marginTop="44dp"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
 
-        <View
-            android:id="@+id/ellipse"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/icon_mine"/>
-
-        <TextView
-            android:id="@+id/person_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="张三"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="26dp"/>
-
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12345678910"
+        <ImageView
+            android:id="@+id/time_task_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="26dp"/>
+            android:background="@drawable/icon_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="定时任务"
+            android:textColor="#101010"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_marginLeft="123dp"/>
 
     </LinearLayout>
 
@@ -46,7 +36,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/user_information"
+            android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="41dp"
             android:layout_marginLeft="12dp"
@@ -62,21 +52,30 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
-                android:text="个人信息"
+                android:text="时间"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/time_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="250dp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/icon_into"
                 android:layout_marginTop="7dp"
-                android:layout_marginLeft="260dp"/>
+                android:layout_marginLeft="2dp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/contact_person"
+            android:id="@+id/port"
             android:layout_width="match_parent"
             android:layout_height="41dp"
             android:layout_marginLeft="12dp"
@@ -92,21 +91,30 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
-                android:text="联系人"
+                android:text="端口"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/port_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="端口1"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="250dp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/icon_into"
                 android:layout_marginTop="7dp"
-                android:layout_marginLeft="276dp"/>
+                android:layout_marginLeft="2dp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/alarm_settings"
+            android:id="@+id/on_or_off"
             android:layout_width="match_parent"
             android:layout_height="41dp"
             android:layout_marginLeft="12dp"
@@ -122,29 +130,38 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
-                android:text="报警设置"
+                android:text="开启/关闭"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/switch_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关闭"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="221dp"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/icon_into"
                 android:layout_marginTop="7dp"
-                android:layout_marginLeft="260dp"/>
+                android:layout_marginLeft="2dp"/>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/login_off"
-            android:layout_width="380dp"
+            android:id="@+id/time_task_change"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/button_corner"
-            android:layout_marginTop="37dp"
-            android:layout_marginLeft="16dp"
-            android:text="退出登录"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:text="添加"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="16dp"/>
 
     </LinearLayout>

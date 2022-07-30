@@ -70,7 +70,9 @@
                 android:id="@+id/tv_smart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="昨天在该端口的用电高峰期为15:00-17:00，主要用电器为打印机。建议您可在打印不需要打印机的时候对此端口进行断电处理。"
+                android:text="经过系统检测，我们发现在昨天您：用电量较多，时间分布比较不均匀，在用电高峰期多个插口同时工作，
+                打印机一整天都处于待机状态没有工作。因此我们推荐您：减少用电量，在用电高峰期合理安排插口，
+                避免多个插口同时工作带来的风险，长期不用使用的用电器及时关闭或断电。"
                 android:layout_marginStart="20sp"
                 android:layout_marginBottom="10dp"/>
         </LinearLayout>

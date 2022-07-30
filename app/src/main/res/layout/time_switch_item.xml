@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/corner">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="32dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/port"
+        android:text="端口1"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginLeft="32dp"/>
+
+    <TextView
+        android:id="@+id/on_or_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关闭"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="48dp"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/icon_into"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="340dp"/>
+
+</RelativeLayout>
